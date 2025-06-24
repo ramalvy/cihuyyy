@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat Gebetan</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #e0f7fa; padding: 20px; text-align: center; }
+    .chat-box { max-width: 500px; margin: auto; background: #ffffff; border-radius: 10px; padding: 15px; box-shadow: 0 0 10px #ccc; text-align: left; }
+    .chat { margin: 10px 0; }
+    .gebetan { color: teal; font-weight: bold; }
+    .kamu { text-align: right; color: #444; font-weight: bold; }
+    .pilihan { margin-top: 15px; text-align: center; }
+    button { margin: 5px; padding: 10px 15px; border: none; background: #00bcd4; color: white; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #0097a7; }
+  </style>
+</head>
+<body>
+  <h2>🧃 chat</h2>
+  <div class="chat-box" id="chatBox">
+    <div class="chat gebetan">xxxxx: aai, kamu lagi ngapain?</div>
+  </div>
+  <div class="pilihan" id="pilihan">
+    <button onclick="balas('lagi mikirin kamu')">mikirin kamu</button>
+    <button onclick="balas('baru bangun sayang')">baru bangun</button>
+    <button onclick="balas('ini mau mam, kamu mau?')">mau makan</button>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById("chatBox");
+    const pilihan = document.getElementById("pilihan");
+
+    function balas(teks) {
+      const kamu = document.createElement("div");
+      kamu.className = "chat kamu";
+      kamu.textContent = "kamu: " + teks;
+      chatBox.appendChild(kamu);
+      pilihan.innerHTML = "";
+
+      setTimeout(() => {
+        const gebetan = document.createElement("div");
+        gebetan.className = "chat gebetan";
+
+        if (teks.includes("mikirin")) {
+          gebetan.textContent = "xxxxx: hahaha bisa aja";
+          pilihan.innerHTML = '<button onclick="balas(\'wleeeeee\')">wle</button>';
+        } else if (teks.includes("bangun")) {
+          gebetan.textContent = "xxxxx: wah, mimpiin aku ngga? ";
+          pilihan.innerHTML = '<button onclick="balas(\'iya dong, tiap malam\')">iya dong</button>';
+        } else {
+          gebetan.textContent = "xxxxx: wah enak dong, aku mau dong disuapin";
+          pilihan.innerHTML = '<button onclick="balas(\'iyaaa sayang\')">iyaaaa</button>';
+        }
+
+        chatBox.appendChild(gebetan);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 1000);
+    }
+  </script>
+</body>
+</html>

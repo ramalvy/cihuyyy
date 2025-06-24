@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Ujian Kejujuran</title>
+  <style>
+    body { font-family: sans-serif; background: #fef9e7; text-align: center; padding: 40px; }
+    .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px #ccc; }
+    h2 { color: #d35400; }
+    button { background: #f39c12; color: white; border: none; padding: 10px 20px; margin: 10px; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #e67e22; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📚 ujian kejujuran</h2>
+    <p id="soal">pertanyaan: pernah bohong ke aku?</p>
+    <div id="jawaban">
+      <button onclick="jawab('ya')">ya</button>
+      <button onclick="jawab('tidak')">tidak</button>
+    </div>
+    <p id="hasil"></p>
+  </div>
+
+  <script>
+    const soal = document.getElementById("soal");
+    const hasil = document.getElementById("hasil");
+    const jawabanDiv = document.getElementById("jawaban");
+
+    const daftarSoal = [
+      "kamu masi sayang si monyet?",
+      "pernah pura pura tidur biar ngga bales chat?",
+      "pernah bilang 'oke' padahal kesel?",
+      "pernah bilang 'aku gak apa apa' padahal sakit hati?",
+      "pernah ngga kamu sakit hati krna sesuatu yg aku bilang atw lakuin?"
+    ];
+
+    let index = 0;
+    let poin = 0;
+
+    function jawab(pilihan) {
+      if (pilihan === 'ya') poin++;
+
+      if (index < daftarSoal.length) {
+        soal.textContent = "pertanyaan: " + daftarSoal[index];
+        index++;
+      } else {
+        soal.textContent = "tes selesai!";
+        jawabanDiv.style.display = "none";
+        hasil.textContent = `skor kejujuranmu: ${5 - poin}/5 — ${penilaian(5 - poin)}`;
+      }
+    }
+
+    function penilaian(nilai) {
+      if (nilai === 5) return "kamu jujur banget 🏅";
+      if (nilai >= 3) return "lumayan jujur";
+      return "acaaa pembohong";
+    }
+  </script>
+</body>
+</html>

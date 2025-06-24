@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Roda Cinta</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; background: #ffe6e6; padding: 30px; }
+    canvas { background: #fff; border-radius: 50%; margin-top: 20px; }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: hotpink;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover { background-color: deeppink; }
+  </style>
+</head>
+<body>
+  <h1>🎡 roda cinta</h1>
+  <canvas id="roda" width="300" height="300"></canvas>
+  <br>
+  <button onclick="putarRoda()">putar roda!</button>
+  <p id="hasil"></p>
+
+  <script>
+    const canvas = document.getElementById("roda");
+    const ctx = canvas.getContext("2d");
+    const size = canvas.width;
+    const center = size / 2;
+    const jumlah = 6;
+    const hadiah = [
+      "cium virtual 😘",
+      "peluk Hangat 🤗",
+      "kata sayang 💌",
+      "makan bareng 🍽️",
+      "jalan' bareng 💕",
+      "strawberry 🍓"
+    ];
+
+    const warna = ["#ff69b4", "#ffb6c1", "#ffc0cb", "#ff1493", "#db7093", "#ffa07a"];
+
+    function gambarRoda() {
+      for (let i = 0; i < jumlah; i++) {
+        const sudutAwal = (2 * Math.PI / jumlah) * i;
+        const sudutAkhir = sudutAwal + (2 * Math.PI / jumlah);
+        ctx.beginPath();
+        ctx.moveTo(center, center);
+        ctx.arc(center, center, center, sudutAwal, sudutAkhir);
+        ctx.fillStyle = warna[i];
+        ctx.fill();
+        ctx.stroke();
+
+        // Tulis teks
+        ctx.save();
+        ctx.translate(center, center);
+        ctx.rotate(sudutAwal + Math.PI / jumlah);
+        ctx.textAlign = "right";
+        ctx.fillStyle = "white";
+        ctx.font = "16px sans-serif";
+        ctx.fillText(hadiah[i], center - 10, 5);
+        ctx.restore();
+      }
+    }
+
+    function putarRoda() {
+      const acak = Math.floor(Math.random() * jumlah);
+      const sudutPutar = (2 * Math.PI / jumlah) * acak + Math.PI;
+      canvas.style.transform = `rotate(${360 * 5 + (acak * (360 / jumlah))}deg)`;
+      document.getElementById("hasil").textContent = "kamu mendapatkan: " + hadiah[acak];
+    }
+
+    gambarRoda();
+  </script>
+</body>
+</html>

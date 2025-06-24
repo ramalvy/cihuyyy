@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Petualangan Cari Kado</title>
+  <style>
+    body { background: #f0f8ff; text-align: center; font-family: Arial, sans-serif; }
+    canvas { background: #fff; border: 2px solid #ccc; margin-top: 20px; }
+    h1 { color: #0077aa; }
+    p { color: #333; }
+  </style>
+</head>
+<body>
+  <h1>🏃 Petualangan mencari rama</h1>
+  <p></p>
+  <canvas id="gameCanvas" width="400" height="300"></canvas>
+
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const player = { x: 20, y: 20, size: 20, color: "hotpink" };
+    const gift = { x: Math.random()*360, y: Math.random()*260, size: 20, color: "gold" };
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") player.x += 10;
+      if (e.key === "ArrowLeft") player.x -= 10;
+      if (e.key === "ArrowUp") player.y -= 10;
+      if (e.key === "ArrowDown") player.y += 10;
+      draw();
+      checkWin();
+    });
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = player.color;
+      ctx.fillRect(player.x, player.y, player.size, player.size);
+      ctx.fillStyle = gift.color;
+      ctx.fillRect(gift.x, gift.y, gift.size, gift.size);
+    }
+
+    function checkWin() {
+      if (
+        player.x < gift.x + gift.size &&
+        player.x + player.size > gift.x &&
+        player.y < gift.y + gift.size &&
+        player.y + player.size > gift.y
+      ) {
+        alert(" yeyyy kamu menemukan rama! selamat!");
+        gift.x = Math.random() * (canvas.width - gift.size);
+        gift.y = Math.random() * (canvas.height - gift.size);
+      }
+    }
+
+    draw();
+  </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kuis Emosi</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fff0f5; padding: 20px; text-align: center; }
+    h1 { color: #c71585; }
+    #kuis { margin-top: 20px; }
+    button { margin: 10px; padding: 10px 20px; border-radius: 10px; border: none; background-color: #ff69b4; color: white; cursor: pointer; }
+    button:hover { background-color: #ff1493; }
+  </style>
+</head>
+<body>
+  <h1>🧠 kuis emosi</h1>
+  <p>tentukan jumlah soal:</p>
+  <input type="number" id="jumlah" value="3" min="1" max="10">
+  <button onclick="mulaiKuis()">mulai</button>
+  <div id="kuis"></div>
+
+  <script>
+    const soal = [
+      { soal: "apa warna cinta?", pilihan: ["merah", "biru", "hijau", "hitam"], benar: "merah" },
+      { soal: "berapa huruf dalam kata 'sayang'?", pilihan: ["5", "6", "7", "8"], benar: "6" },
+      { soal: "apa lawan kata 'setia'?", pilihan: ["jujur", "curang", "sayang", "lupa"], benar: "curang" },
+      { soal: "cinta itu...?", pilihan: ["ribet", "indah", "sulit", "asam"], benar: "indah" },
+      { soal: "apakah kamu sayang rama?", pilihan: ["iya","iya sayang banget", "tidak"], benar: "iya sayang banget" },
+      { soal: "awan apa yang bikin seneng?", pilihan: ["awanna be with you","cirrus","cumulus"], benar: "awanna be with you" },
+      { soal: "apa yg bisa kamu hancurkan tpi tidak bisa disatukan kembali?", pilihan: ["gelas", "janji", "batu", "hati"], benar: "janji" },
+      { soal: "rumah apa yg paling bahagia?", pilihan: ["rumah aku", "rumah bp owi", "rumah tangga kita"], benar: "rumah tangga kita" },
+      { soal: "beli obat di?", pilihan: ["apotek", "minum", "dipenjualny"], benar: "minum" },
+      { soal: "ayam apa yg besar?", pilihan: ["ayam tetangga", "ayam mega", "ayam semesta"], benar: "ayam semesta" },
+    ];
+
+    let index = 0;
+    let skor = 0;
+    let kuisSoal = [];
+
+    function mulaiKuis() {
+      index = 0;
+      skor = 0;
+      const jumlah = parseInt(document.getElementById('jumlah').value);
+      kuisSoal = [...soal].sort(() => 0.5 - Math.random()).slice(0, jumlah);
+      tampilSoal();
+    }
+
+    function tampilSoal() {
+      const div = document.getElementById("kuis");
+      div.innerHTML = "";
+      if (index >= kuisSoal.length) {
+        div.innerHTML = `<h2>skor kamu: ${skor} / ${kuisSoal.length}</h2>`;
+        return;
+      }
+      const data = kuisSoal[index];
+      const soalHtml = `<h3>${data.soal}</h3>`;
+      div.innerHTML = soalHtml;
+      data.pilihan.forEach(pil => {
+        const btn = document.createElement("button");
+        btn.innerText = pil;
+        btn.onclick = () => {
+          if (pil === data.benar) skor++;
+          index++;
+          tampilSoal();
+        };
+        div.appendChild(btn);
+      });
+    }
+  </script>
+</body>
+</html>
